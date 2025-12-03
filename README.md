@@ -1,29 +1,101 @@
 # NgPasteles
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.5.
+Sistema de gestión de pedidos de pasteles desarrollado con Angular 20.
 
-## Development server
+## Descripción
 
-To start a local development server, run:
+NgPasteles es una aplicación web para administrar clientes, pasteles y pedidos de una pastelería. Utiliza arquitectura modular con feature modules, signal stores para manejo de estado, y PrimeNG para componentes UI.
+
+## Tecnologías
+
+- Angular 20
+- TypeScript
+- NgRx Signals para manejo de estado
+- PrimeNG para componentes UI
+- SCSS para estilos
+- Arquitectura modular (feature-based)
+
+## Requisitos previos
+
+- Node.js (versión 18 o superior)
+- npm o yarn
+- Backend API corriendo en `http://localhost:5095`
+
+## Instalación
+
+```bash
+# Clonar el repositorio
+git clone <url-del-repositorio>
+
+# Instalar dependencias
+npm install
+```
+
+## Configuración
+
+Crear archivo `.env` en la raíz del proyecto:
+
+```
+API_URL=http://localhost:5095/api
+```
+
+## Servidor de desarrollo
+
+Para iniciar el servidor de desarrollo:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Navega a `http://localhost:4200/`. La aplicación se recargará automáticamente cuando modifiques archivos.
 
-## Code scaffolding
+## Estructura del proyecto
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```
+src/app/
+├── core/                    # Servicios core, guards, interceptors
+│   ├── guards/
+│   ├── interceptors/
+│   ├── models/
+│   └── services/
+├── features/                # Módulos de funcionalidades
+│   ├── clientes/
+│   │   ├── data-access/    # Store, API, modelos
+│   │   ├── feature/        # Páginas/containers
+│   │   └── ui/             # Componentes presentacionales
+│   ├── pasteles/
+│   └── pedidos/
+├── layout/                  # Componentes de layout
+└── shared/                  # Componentes compartidos
+    ├── components/
+    ├── directives/
+    ├── pipes/
+    └── validators/
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Características
+
+- Gestión de clientes (CRUD)
+- Catálogo de pasteles
+- Sistema de pedidos
+- Paginación y búsqueda
+- Manejo de errores con mensajes amigables
+- Confirmaciones para acciones destructivas
+- Diseño responsive
+
+## Generación de código
+
+Para generar componentes:
 
 ```bash
-ng generate --help
+# Componente
+ng g component features/nombre-feature/ui/nombre-componente
+
+# Servicio
+ng g service features/nombre-feature/data-access/services/nombre-servicio
+
+# Interfaz/modelo
+ng g interface features/nombre-feature/data-access/models/nombre-modelo
 ```
 
 ## Building
@@ -54,6 +126,19 @@ ng e2e
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
-## Additional Resources
+## Manejo de errores
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+La aplicación incluye manejo de errores para:
+- Servidor no disponible: "El servidor no está disponible. Se recuperará pronto."
+- Errores de API con mensajes específicos
+- Validaciones de formularios
+
+## Recursos adicionales
+
+- [Angular CLI](https://angular.dev/tools/cli)
+- [NgRx Signals](https://ngrx.io/guide/signals)
+- [PrimeNG](https://primeng.org/)
+
+## Licencia
+
+Este proyecto es privado.

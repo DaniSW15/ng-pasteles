@@ -3,7 +3,7 @@ import { ICliente } from "../models/cliente.model"
 import { inject } from "@angular/core";
 import { ClientesApi } from "../services/clientes-api";
 import { rxMethod } from "@ngrx/signals/rxjs-interop";
-import { pipe, switchMap, tap } from "rxjs";
+import { pipe, switchMap, tap, catchError, of } from "rxjs";
 
 type ClientesState = {
     clientes: ICliente[];
@@ -39,6 +39,16 @@ export const ClientesStore = signalStore({ providedIn: 'root' }, withState(initi
                         totalCount: response.totalCount,
                         loading: false
                     })
+                }),
+                catchError((error) => {
+                    const errorMessage = error.status === 0 
+                        ? 'El servidor no está disponible. Se recuperará pronto.' 
+                        : error.message || 'Error al cargar los clientes';
+                    patchState(store, { 
+                        error: errorMessage, 
+                        loading: false 
+                    });
+                    return of(null);
                 })
             ))
         )

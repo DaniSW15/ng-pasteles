@@ -1,7 +1,7 @@
 import { signalStore, withState, withMethods, patchState } from '@ngrx/signals';
 import { inject } from '@angular/core';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { pipe, switchMap, tap } from 'rxjs';
+import { pipe, switchMap, tap, catchError, of } from 'rxjs';
 import { PastelesApi } from '../services/pasteles-api';
 import { CreatePastelModel } from '../models/create-pastel.model';
 import { Pastel } from '../models/pastel.model';
@@ -45,6 +45,16 @@ export const PastelesStore = signalStore(
                 totalCount: response.totalCount,
                 loading: false,
               });
+            }),
+            catchError((error) => {
+              const errorMessage = error.status === 0 
+                ? 'El servidor no está disponible. Se recuperará pronto.' 
+                : error.message || 'Error al cargar los pasteles';
+              patchState(store, { 
+                error: errorMessage, 
+                loading: false 
+              });
+              return of(null);
             })
           )
         )
