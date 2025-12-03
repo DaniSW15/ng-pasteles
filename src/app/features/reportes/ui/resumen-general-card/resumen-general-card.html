@@ -1,0 +1,29 @@
+<div class="resumen-grid">
+  <app-stats-card
+    icon="pi pi-shopping-cart"
+    [value]="data()?.totalPedidos ?? 0"
+    label="Total Pedidos"
+    colorClass="card-blue"
+  />
+
+  <app-stats-card
+    icon="pi pi-dollar"
+    [value]="((data()?.totalVentas ?? 0) | currency) ?? '$0.00'"
+    label="Total Ventas"
+    colorClass="card-green"
+  />
+
+  <app-stats-card
+    icon="pi pi-clock"
+    [value]="data()?.pedidosPendientes ?? 0"
+    label="Pedidos Pendientes"
+    colorClass="card-orange"
+  />
+
+  <app-stats-card
+    icon="pi pi-users"
+    [value]="data()?.clientesActivos ?? 0"
+    label="Clientes Activos"
+    colorClass="card-purple"
+  />
+</div>

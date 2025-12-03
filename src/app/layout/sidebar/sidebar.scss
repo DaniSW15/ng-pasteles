@@ -1,0 +1,40 @@
+::ng-deep .layout-sidebar {
+  width: 300px !important;
+  top: 60px !important;
+  height: calc(100vh - 60px) !important;
+  border-right: 1px solid var(--surface-border);
+
+  .p-drawer-content {
+    padding: 0;
+  }
+
+  .sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    border-bottom: 1px solid var(--surface-border);
+
+    .sidebar-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+  }
+
+  .p-panelmenu {
+    border: none;
+
+    .p-panelmenu-panel {
+      margin-bottom: 0;
+    }
+
+    .p-menuitem-link {
+      padding: 1rem 1.5rem;
+      
+      &:hover {
+        background: var(--highlight-bg);
+      }
+    }
+  }
+}

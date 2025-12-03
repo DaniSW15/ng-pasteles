@@ -1,1 +1,50 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+  // Paleta de colores pastelería
+  --pastel-primary: #ff6b9d;      // Rosa pastel
+  --pastel-primary-light: #ffb3d9;
+  --pastel-secondary: #ffd93d;    // Amarillo crema
+  --pastel-secondary-light: #ffeaa7;
+  --pastel-accent: #6c5b7b;       // Chocolate
+  --pastel-accent-light: #8b7d8b;
+  --pastel-fresh: #a8e6cf;        // Verde menta
+  --pastel-fresh-light: #c7f0db;
+  --pastel-background: #fff5f7;   // Fondo rosa muy claro
+
+  // Personalización de PrimeNG con colores pastel
+  --p-primary-50: #fff5f7;
+  --p-primary-100: #ffe4ec;
+  --p-primary-200: #ffccd9;
+  --p-primary-300: #ffb3d9;
+  --p-primary-400: #ff8ab8;
+  --p-primary-500: #ff6b9d;
+  --p-primary-600: #e6508a;
+  --p-primary-700: #cc3d77;
+  --p-primary-800: #b32a64;
+  --p-primary-900: #991751;
+
+  --p-surface-0: #ffffff;
+  --p-surface-50: #fff5f7;
+  --p-surface-100: #ffeef2;
+  --p-surface-200: #ffe4ec;
+  --p-surface-300: #ffd9e6;
+  --p-surface-400: #ffccd9;
+  --p-surface-500: #ffb3d9;
+  --p-surface-600: #ff99cc;
+  --p-surface-700: #ff80bf;
+  --p-surface-800: #ff66b3;
+  --p-surface-900: #ff4da6;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--pastel-background);
+}
+
+// styles.scss
+.card-blue { border-left: 4px solid #3B82F6; }
+.card-green { border-left: 4px solid #10B981; }
+.card-orange { border-left: 4px solid #F59E0B; }
+.card-purple { border-left: 4px solid #8B5CF6; }

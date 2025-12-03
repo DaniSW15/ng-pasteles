@@ -1,0 +1,27 @@
+<p-card header="Top Clientes">
+    <p-table [value]="clientes()" [rows]="10">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>#</th>
+                <th>Cliente</th>
+                <th>Pedidos</th>
+                <th>Total Gastado</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-cliente let-i="rowIndex">
+            <tr>
+                <td>
+                    <p-tag [value]="(i + 1).toString()" [severity]="i < 3 ? 'success' : 'info'" />
+                </td>
+                <td>{{ cliente.nombreCliente }}</td>
+                <td>{{ cliente.totalPedidos }}</td>
+                <td>{{ cliente.totalGastado | currency }}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="4">No hay datos disponibles</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-card>

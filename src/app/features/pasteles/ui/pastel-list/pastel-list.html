@@ -1,0 +1,24 @@
+<div class="pastel-list">
+  @if (error()) {
+    <p class="error">Error: {{ error() }}</p>
+  }
+  
+  @if (loading() && pasteles().length === 0) {
+    <app-loading-spinner message="Cargando pasteles..." />
+  } @else {
+    <app-data-table
+      [data]="pasteles()"
+      [columns]="columns"
+      [loading]="loading()"
+      (rowSelect)="onRowSelect($event)"
+      (rowDelete)="onRowDelete($event)"
+    />
+    
+    <app-pagination
+      [currentPage]="currentPage()"
+      [pageSize]="pageSize()"
+      [totalCount]="totalCount()"
+      (pageChange)="pageChange.emit($event)"
+    />
+  }
+</div>

@@ -1,0 +1,33 @@
+.layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.layout-main {
+  flex: 1;
+  padding: 2rem;
+  margin-left: 300px;
+  margin-top: 60px;
+  transition: margin-left 0.3s ease;
+
+  &.sidebar-collapsed {
+    margin-left: 0;
+  }
+
+  .content-wrapper {
+    margin-top: 1rem;
+  }
+}
+
+.layout-footer {
+  padding: 1rem;
+  text-align: center;
+  border-top: 1px solid var(--surface-border);
+  margin-left: 300px;
+  transition: margin-left 0.3s ease;
+
+  &.sidebar-collapsed {
+    margin-left: 0;
+  }
+}

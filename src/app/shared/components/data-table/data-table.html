@@ -1,0 +1,45 @@
+<p-table 
+  [value]="data()" 
+  [loading]="loading()"
+  [tableStyle]="{ 'min-width': '50rem' }"
+  [pt]="{ root: { class: 'p-datatable-striped' } }"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      @for (col of columns(); track col.field) {
+        @if (col.sortable) {
+          <th [pSortableColumn]="col.field">
+            {{ col.header }}
+            <p-sortIcon [field]="col.field" />
+          </th>
+        } @else {
+          <th>{{ col.header }}</th>
+        }
+      }
+      <th>Acciones</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-row>
+    <tr>
+      @for (col of columns(); track col.field) {
+        <td>{{ row[col.field] }}</td>
+      }
+      <td>
+        <p-button 
+          icon="pi pi-eye" 
+          [rounded]="true"
+          [text]="true"
+          severity="info"
+          (onClick)="confirmEdit($event, row)"
+        />
+        <p-button 
+          icon="pi pi-trash" 
+          [rounded]="true"
+          [text]="true"
+          severity="danger"
+          (onClick)="confirmDelete($event, row)"
+        />
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

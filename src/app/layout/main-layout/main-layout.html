@@ -1,0 +1,20 @@
+<div class="layout-wrapper">
+  <!-- Header -->
+  <app-header (toggleSidebarEvent)="toggleSidebar()" />
+
+  <!-- Sidebar -->
+  <app-sidebar [visible]="sidebarVisible()" [menuItems]="menuItems" />
+
+  <!-- Main Content -->
+  <main class="layout-main" [class.sidebar-collapsed]="!sidebarVisible()">
+    <p-breadcrumb [model]="breadcrumbItems" />
+    <div class="content-wrapper">
+      <router-outlet />
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="layout-footer" [class.sidebar-collapsed]="!sidebarVisible()">
+    <p>© 2025 Pasteles App</p>
+  </footer>
+</div>

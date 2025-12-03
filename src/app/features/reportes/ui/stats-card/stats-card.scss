@@ -1,0 +1,25 @@
+.stats-card {
+    height: 100%;
+}
+
+.stats-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.stats-icon {
+    font-size: 2.5rem;
+    opacity: 0.8;
+}
+
+.stats-value {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.stats-label {
+    color: #666;
+    margin: 0;
+}

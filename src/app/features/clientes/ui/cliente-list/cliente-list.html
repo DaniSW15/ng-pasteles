@@ -1,0 +1,24 @@
+<div class="cliente-list">
+    @if (error()) {
+        <p class="error">Error: {{ error() }}</p>
+    }
+
+    @if (loading() && clientes().length === 0) {
+        <app-loading-spinner message="Cargando pasteles..." />
+    } @else {
+        <app-data-table
+            [data]="clientes()"
+            [columns]="columns"
+            [loading]="loading()"
+            (rowSelect)="onRowSelect($event)"
+            (rowDelete)="onRowDelete($event)"
+        />
+
+        <app-pagination
+            [currentPage]="currentPage()"
+            [pageSize]="pageSize()"
+            [totalCount]="totalCount()"
+            (pageChange)="pageChange.emit($event)"
+        />
+    }
+</div>

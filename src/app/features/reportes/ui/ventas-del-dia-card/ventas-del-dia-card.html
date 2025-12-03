@@ -1,0 +1,23 @@
+<p-card header="Ventas del Día">
+    <p-table [value]="ventas()" [rows]="5" [paginator]="true">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Hora</th>
+                <th>Cliente</th>
+                <th>Total</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-venta>
+            <tr>
+                <td>{{ venta.hora | date:'shortTime' }}</td>
+                <td>{{ venta.cliente }}</td>
+                <td>{{ venta.total | currency }}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="3">No hay ventas registradas hoy</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-card>

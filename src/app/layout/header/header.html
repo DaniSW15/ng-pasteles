@@ -1,0 +1,15 @@
+<p-toolbar styleClass="layout-header">
+  <ng-template pTemplate="start">
+    <button
+      pButton
+      icon="pi pi-bars"
+      (click)="toggleSidebar()"
+      [text]="true"
+      [rounded]="true"
+    ></button>
+    <span class="app-title">Gestión de Pasteles</span>
+  </ng-template>
+  <ng-template pTemplate="end">
+    <p-avatar label="U" shape="circle" [style]="{ 'background-color': '#9c27b0', color: '#ffffff' }" />
+  </ng-template>
+</p-toolbar>

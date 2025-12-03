@@ -1,0 +1,11 @@
+<p-card [class]="'stats-card ' + colorClass()">
+    <div class="stats-content">
+        <div class="stats-icon">
+            <i [class]="icon()"></i>
+        </div>
+        <div class="stats-info">
+            <h3 class="stats-value">{{ value() }}</h3>
+            <p class="stats-label">{{ label() }}</p>
+        </div>
+    </div>
+</p-card>

@@ -1,0 +1,15 @@
+::ng-deep .layout-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  border-bottom: 1px solid var(--surface-border);
+
+  .app-title {
+    margin-left: 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-color);
+  }
+}

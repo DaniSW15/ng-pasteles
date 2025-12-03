@@ -1,0 +1,15 @@
+<div class="container">
+    <h1>Clientes</h1>
+
+    <app-cliente-list
+        [clientes]="store.clientes()"
+        [loading]="store.loading()"
+        [error]="store.error()"
+        [currentPage]="store.currentPage()"
+        [pageSize]="pageSize()"
+        [totalCount]="store.totalCount()"
+        (pageChange)="onPageChange($event)"
+        (clienteSelect)="onClienteSelect($event)"
+        (clienteDelete)="onClienteDelete($event)"
+    />
+</div>

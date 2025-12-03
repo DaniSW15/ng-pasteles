@@ -1,0 +1,9 @@
+<div class="loading-spinner" [class.overlay]="overlay()">
+    <div class="spinner-container">
+        <p-progressSpinner [style]="{ width: size(), height: size() }" [strokeWidth]="strokeWidth()"
+            ariaLabel="loading" />
+        @if (message()) {
+        <p class="loading-message">{{ message() }}</p>
+        }
+    </div>
+</div>

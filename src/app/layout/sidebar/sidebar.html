@@ -1,0 +1,16 @@
+<p-drawer
+  [visible]="visible()"
+  [modal]="false"
+  [showCloseIcon]="false"
+  [dismissible]="false"
+  styleClass="layout-sidebar"
+  position="left"
+>
+  <ng-template pTemplate="header">
+    <div class="sidebar-header">
+      <i class="pi pi-birthday-cake" style="font-size: 2rem"></i>
+      <span class="sidebar-title">Pasteles</span>
+    </div>
+  </ng-template>
+  <p-panelmenu [model]="menuItems()" />
+</p-drawer>
