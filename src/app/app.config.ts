@@ -19,6 +19,7 @@ import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
 import { loadingInterceptor } from './core/interceptors/loading/loading-interceptor';
 import { httpErrorInterceptor } from './core/interceptors/http-error/http-error-interceptor';
 
@@ -45,5 +46,6 @@ export const appConfig: ApplicationConfig = {
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     ConfirmationService,
     MessageService,
+    DialogService,
   ],
 };

@@ -1,1 +1,43 @@
-<p>cliente-card works!</p>
+<p-card class="cliente-card">
+    <div class="card-content">
+        <div class="card-header">
+            <i class="pi pi-user card-icon"></i>
+            <h3 class="card-title">{{ cliente().nombre }}</h3>
+        </div>
+
+        <div class="card-info">
+            <div class="info-item">
+                <i class="pi pi-envelope"></i>
+                <span>{{ cliente().email }}</span>
+            </div>
+
+            <div class="info-item">
+                <i class="pi pi-phone"></i>
+                <span>{{ cliente().telefono }}</span>
+            </div>
+
+            <div class="info-item">
+                <i class="pi pi-map-marker"></i>
+                <span>{{ cliente().direccion }}</span>
+            </div>
+
+            @if (cliente().fechaRegistro) {
+            <div class="info-item">
+                <i class="pi pi-calendar"></i>
+                <span>{{ cliente().fechaRegistro | date:'dd/MM/yyyy' }}</span>
+            </div>
+            }
+        </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+        <div class="card-actions">
+            <p-button icon="pi pi-eye" [rounded]="true" [text]="true" severity="info" (onClick)="onSelect()"
+                pTooltip="Ver detalles" />
+            <p-button icon="pi pi-pen-to-square" [rounded]="true" [text]="true" severity="warn" (onClick)="onEdit()"
+                pTooltip="Editar" />
+            <p-button icon="pi pi-trash" [rounded]="true" [text]="true" severity="danger" (onClick)="onDelete()"
+                pTooltip="Eliminar" />
+        </div>
+    </ng-template>
+</p-card>

@@ -2,7 +2,7 @@ import { Component, input, output, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { ConfirmationDialog } from "../confirmation-dialog/confirmation-dialog";
+import { DatePipe, CurrencyPipe } from '@angular/common';
 
 export interface TableColumn {
   field: string;
@@ -12,7 +12,7 @@ export interface TableColumn {
 
 @Component({
   selector: 'app-data-table',
-  imports: [TableModule, ButtonModule],
+  imports: [TableModule, ButtonModule, DatePipe, CurrencyPipe],
   templateUrl: './data-table.html',
   styleUrl: './data-table.scss',
 })
@@ -24,41 +24,49 @@ export class DataTable<T extends Record<string, any>> {
   deleteHeader = input<string>('Confirmar eliminación');
 
   rowSelect = output<T>();
+  rowEdit = output<T>();
   rowDelete = output<T>();
 
   private confirmationService = inject(ConfirmationService);
   private messageService = inject(MessageService);
 
-  confirmEdit(event: Event, row: T) {
-    this.confirmationService.confirm({
-      target: event.target as EventTarget,
-      message: '¿Estás seguro de guardar los cambios?',
-      header: 'Confirmación',
-      icon: 'pi pi-exclamation-triangle',
-      acceptIcon: 'pi pi-check',
-      rejectIcon: 'pi pi-times',
-      acceptLabel: 'Guardar',
-      rejectLabel: 'Cancelar',
-      accept: () => {
-        this.rowSelect.emit(row);
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Confirmado',
-          detail: 'Cambios guardados correctamente',
-        });
-      },
-      reject: () => {
-        this.messageService.add({
-          severity: 'info',
-          summary: 'Cancelado',
-          detail: 'Operación cancelada',
-        });
-      },
-    });
+  // Detectar si un campo es de tipo fecha
+  isFechaField(fieldName: string): boolean {
+    return fieldName.toLowerCase().includes('fecha') ||
+      fieldName.toLowerCase().includes('date') ||
+      fieldName.toLowerCase().includes('creado') ||
+      fieldName.toLowerCase().includes('actualizado');
+  }
+
+  // Detectar si un campo es de tipo precio/moneda
+  isPrecioField(fieldName: string): boolean {
+    return fieldName.toLowerCase().includes('precio') ||
+      fieldName.toLowerCase().includes('price') ||
+      fieldName.toLowerCase().includes('costo') ||
+      fieldName.toLowerCase().includes('total');
+  }
+
+  // Detectar si un campo es booleano
+  isBooleanField(fieldName: string): boolean {
+    return fieldName.toLowerCase().includes('disponible') ||
+      fieldName.toLowerCase().includes('activo') ||
+      fieldName.toLowerCase().includes('habilitado') ||
+      fieldName.toLowerCase().includes('enabled') ||
+      fieldName.toLowerCase().includes('active');
+  }
+
+  // Vista rápida (sin confirmación)
+  onRowView(row: T) {
+    this.rowSelect.emit(row);
+  }
+
+  // Editar (sin confirmación, abre modal directamente)
+  onRowEdit(row: T) {
+    this.rowEdit.emit(row);
   }
 
   confirmDelete(event: Event, row: T) {
-    console.log('🗑️ Botón eliminar clickeado', row);
+    // console.log('🗑️ Botón eliminar clickeado', row);
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: '¿Estás seguro de eliminar este elemento?',

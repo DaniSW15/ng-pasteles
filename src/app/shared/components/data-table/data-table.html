@@ -22,7 +22,19 @@
   <ng-template pTemplate="body" let-row>
     <tr>
       @for (col of columns(); track col.field) {
-        <td>{{ row[col.field] }}</td>
+        <td>
+          @if (isFechaField(col.field)) {
+            {{ row[col.field] | date:'dd/MM/yyyy HH:mm' }}
+          } @else if (isPrecioField(col.field)) {
+            {{ row[col.field] | currency:'USD':'symbol':'1.2-2' }}
+          } @else if (isBooleanField(col.field)) {
+            <span [class]="row[col.field] ? 'badge-success' : 'badge-danger'">
+              {{ row[col.field] ? 'Sí' : 'No' }}
+            </span>
+          } @else {
+            {{ row[col.field] }}
+          }
+        </td>
       }
       <td>
         <p-button 
@@ -30,10 +42,17 @@
           [rounded]="true"
           [text]="true"
           severity="info"
-          (onClick)="confirmEdit($event, row)"
+          (onClick)="onRowView(row)"
         />
         <p-button 
-          icon="pi pi-trash" 
+          icon="pi pi-pen-to-square" 
+          [rounded]="true"
+          [text]="true"
+          severity="warn"
+          (onClick)="onRowEdit(row)"
+        />
+        <p-button 
+          icon="pi pi-trash"
           [rounded]="true"
           [text]="true"
           severity="danger"

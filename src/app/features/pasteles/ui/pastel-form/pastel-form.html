@@ -1,1 +1,100 @@
-<p>pastel-form works!</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="pastel-form">
+  
+  <!-- Nombre -->
+  <div class="field">
+    <label for="nombre">Nombre *</label>
+    <input 
+      pInputText 
+      id="nombre" 
+      formControlName="nombre"
+      placeholder="Ej: Pastel de chocolate"
+      [class.ng-invalid]="isFieldInvalid('nombre')"
+    />
+    @if (isFieldInvalid('nombre')) {
+      <small class="error">{{ getErrorMessage('nombre') }}</small>
+    }
+  </div>
+
+  <!-- Descripción -->
+  <div class="field">
+    <label for="descripcion">Descripción *</label>
+    <textarea 
+      pInputTextarea 
+      id="descripcion" 
+      formControlName="descripcion"
+      rows="3"
+      placeholder="Describe el pastel..."
+      [class.ng-invalid]="isFieldInvalid('descripcion')"
+    ></textarea>
+    @if (isFieldInvalid('descripcion')) {
+      <small class="error">{{ getErrorMessage('descripcion') }}</small>
+    }
+  </div>
+
+  <!-- Precio -->
+  <div class="field">
+    <label for="precio">Precio *</label>
+    <p-inputNumber 
+      inputId="precio"
+      formControlName="precio"
+      mode="currency"
+      currency="USD"
+      locale="en-US"
+      [minFractionDigits]="2"
+      [class.ng-invalid]="isFieldInvalid('precio')"
+    />
+    @if (isFieldInvalid('precio')) {
+      <small class="error">{{ getErrorMessage('precio') }}</small>
+    }
+  </div>
+
+  <!-- Categoría -->
+  <div class="field">
+    <label for="categoria">Categoría</label>
+    <input 
+      pInputText 
+      id="categoria" 
+      formControlName="categoria"
+      placeholder="Ej: Chocolate, Vainilla, Frutas"
+    />
+  </div>
+
+  <!-- Imagen URL -->
+  <div class="field">
+    <label for="imagenUrl">URL de imagen</label>
+    <input 
+      pInputText 
+      id="imagenUrl" 
+      formControlName="imagenUrl"
+      placeholder="https://ejemplo.com/imagen.jpg"
+    />
+  </div>
+
+  <!-- Disponible -->
+  <div class="field-checkbox">
+    <p-checkbox 
+      inputId="disponible"
+      formControlName="disponible"
+      [binary]="true"
+    />
+    <label for="disponible">Disponible para venta</label>
+  </div>
+
+  <!-- Botones -->
+  <div class="form-actions">
+    <p-button 
+      label="Cancelar" 
+      icon="pi pi-times" 
+      (onClick)="onCancel()"
+      [text]="true"
+      severity="secondary"
+    />
+    <p-button 
+      [label]="isEditMode ? 'Actualizar' : 'Crear'" 
+      icon="pi pi-check" 
+      type="submit"
+      [disabled]="form.invalid"
+    />
+  </div>
+
+</form>

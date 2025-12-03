@@ -3,11 +3,14 @@
   <app-header (toggleSidebarEvent)="toggleSidebar()" />
 
   <!-- Sidebar -->
-  <app-sidebar [visible]="sidebarVisible()" [menuItems]="menuItems" />
+  <app-sidebar 
+    [visible]="sidebarVisible()" 
+    [menuItems]="menuItems"
+    (closeSidebar)="toggleSidebar()"
+  />
 
   <!-- Main Content -->
   <main class="layout-main" [class.sidebar-collapsed]="!sidebarVisible()">
-    <p-breadcrumb [model]="breadcrumbItems" />
     <div class="content-wrapper">
       <router-outlet />
     </div>

@@ -47,12 +47,12 @@ export const PastelesStore = signalStore(
               });
             }),
             catchError((error) => {
-              const errorMessage = error.status === 0 
-                ? 'El servidor no está disponible. Se recuperará pronto.' 
+              const errorMessage = error.status === 0
+                ? 'El servidor no está disponible. Se recuperará pronto.'
                 : error.message || 'Error al cargar los pasteles';
-              patchState(store, { 
-                error: errorMessage, 
-                loading: false 
+              patchState(store, {
+                error: errorMessage,
+                loading: false
               });
               return of(null);
             })
@@ -77,6 +77,19 @@ export const PastelesStore = signalStore(
         next: (newPastel) =>
           patchState(store, {
             pasteles: [...store.pasteles(), newPastel],
+            loading: false,
+          }),
+        error: (error) =>
+          patchState(store, { error: error.message, loading: false }),
+      });
+    },
+
+    updatePastel: (id: string, pastel: Partial<Pastel>) => {
+      patchState(store, { loading: true });
+      pastelesApi.update(id, pastel).subscribe({
+        next: (updatedPastel) =>
+          patchState(store, {
+            pasteles: store.pasteles().map((p) => p.id === id ? updatedPastel : p),
             loading: false,
           }),
         error: (error) =>

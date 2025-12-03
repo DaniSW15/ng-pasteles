@@ -1,0 +1,29 @@
+<div class="pastel-quick-view">
+    <div class="field">
+        <label>Nombre</label>
+        <p>{{ pastel.nombre }}</p>
+    </div>
+
+    <div class="field">
+        <label>Descripción</label>
+        <p>{{ pastel.descripcion }}</p>
+    </div>
+
+    <div class="field">
+        <label>Precio</label>
+        <p class="price">{{ pastel.precio | currency }}</p>
+    </div>
+
+    <div class="field">
+        <label>Estado</label>
+        <p>
+            <span [class]="pastel.disponible ? 'badge-success' : 'badge-danger'">
+                {{ pastel.disponible ? 'Disponible' : 'No disponible' }}
+            </span>
+        </p>
+    </div>
+
+    <div class="actions">
+        <p-button label="Cerrar" icon="pi pi-times" (onClick)="close()" [text]="true" />
+    </div>
+</div>

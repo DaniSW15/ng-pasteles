@@ -6,13 +6,29 @@
   @if (loading() && pasteles().length === 0) {
     <app-loading-spinner message="Cargando pasteles..." />
   } @else {
-    <app-data-table
-      [data]="pasteles()"
-      [columns]="columns"
-      [loading]="loading()"
-      (rowSelect)="onRowSelect($event)"
-      (rowDelete)="onRowDelete($event)"
-    />
+    @if (viewMode() === 'table') {
+      <!-- Vista de tabla -->
+      <app-data-table
+        [data]="pasteles()"
+        [columns]="columns"
+        [loading]="loading()"
+        (rowSelect)="onRowSelect($event)"
+        (rowEdit)="onRowEdit($event)"
+        (rowDelete)="onRowDelete($event)"
+      />
+    } @else {
+      <!-- Vista de tarjetas -->
+      <div class="pasteles-grid">
+        @for (pastel of pasteles(); track pastel.id) {
+          <app-pastel-card
+            [pastel]="pastel"
+            (select)="pastelSelect.emit($event)"
+            (edit)="pastelEdit.emit($event)"
+            (delete)="pastelDelete.emit($event)"
+          />
+        }
+      </div>
+    }
     
     <app-pagination
       [currentPage]="currentPage()"

@@ -6,13 +6,27 @@
     @if (loading() && clientes().length === 0) {
         <app-loading-spinner message="Cargando pasteles..." />
     } @else {
-        <app-data-table
-            [data]="clientes()"
-            [columns]="columns"
-            [loading]="loading()"
-            (rowSelect)="onRowSelect($event)"
-            (rowDelete)="onRowDelete($event)"
-        />
+        @if (viewMode() === 'table') {
+            <app-data-table
+                [data]="clientes()"
+                [columns]="columns"
+                [loading]="loading()"
+                (rowSelect)="onRowSelect($event)"
+                (rowEdit)="onRowEdit($event)"
+                (rowDelete)="onRowDelete($event)"
+            />
+        } @else {
+            <div class="clientes-grid">
+                @for (cliente of clientes(); track cliente.id) {
+                    <app-cliente-card
+                        [cliente]="cliente"
+                        (select)="clienteSelect.emit($event)"
+                        (edit)="clienteEdit.emit($event)"
+                        (delete)="clienteDelete.emit($event)"
+                    />
+                }
+            </div>
+        }
 
         <app-pagination
             [currentPage]="currentPage()"

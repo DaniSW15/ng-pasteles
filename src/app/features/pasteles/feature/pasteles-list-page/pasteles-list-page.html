@@ -1,5 +1,23 @@
 <div class="container">
-  <h1>🎂 Pasteles</h1>
+  <div class="header">
+    <h1>🎂 Pasteles</h1>
+    <div class="header-actions">
+      <p-button 
+        [icon]="viewMode() === 'table' ? 'pi pi-th-large' : 'pi pi-list'" 
+        (onClick)="toggleView()"
+        [text]="true"
+        [rounded]="true"
+        severity="secondary"
+        [pTooltip]="viewMode() === 'table' ? 'Vista de tarjetas' : 'Vista de tabla'"
+      />
+      <p-button 
+        label="Nuevo Pastel" 
+        icon="pi pi-plus" 
+        (onClick)="crearPastel()"
+        severity="success"
+      />
+    </div>
+  </div>
 
   <app-pastel-list
     [pasteles]="store.pasteles()"
@@ -8,8 +26,10 @@
     [currentPage]="store.currentPage()"
     [pageSize]="pageSize()"
     [totalCount]="store.totalCount()"
+    [viewMode]="viewMode()"
     (pageChange)="onPageChange($event)"
     (pastelSelect)="onPastelSelect($event)"
+    (pastelEdit)="onPastelEdit($event)"
     (pastelDelete)="onPastelDelete($event)"
   />
 </div>

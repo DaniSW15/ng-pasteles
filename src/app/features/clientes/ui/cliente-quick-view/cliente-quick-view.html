@@ -1,0 +1,27 @@
+<div class="pastel-quick-view">
+    <div class="field">
+        <label>Nombre</label>
+        <p>{{ clientes.nombre }}</p>
+    </div>
+
+    <div class="field">
+        <label>Descripción</label>
+        <p>{{ clientes.email }}</p>
+    </div>
+
+    <div class="field">
+        <label>Telefono</label>
+        <p class="price">{{ clientes.telefono }}</p>
+    </div>
+
+    <div class="field">
+        <label>Descripción</label>
+        <p>
+            {{ clientes.direccion }}
+        </p>
+    </div>
+
+    <div class="actions">
+        <p-button label="Cerrar" icon="pi pi-times" (onClick)="close()" [text]="true" />
+    </div>
+</div>

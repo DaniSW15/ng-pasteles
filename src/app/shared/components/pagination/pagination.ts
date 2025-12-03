@@ -9,9 +9,9 @@ import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 })
 export class Pagination {
   currentPage = input.required<number>();
-  pageSize = input<number>(10);
+  pageSize = input<number>(5);
   totalCount = input.required<number>();
-  rowsPerPageOptions = input<number[]>([10, 20, 30, 50]);
+  rowsPerPageOptions = input<number[]>([5, 10, 20, 30]);
 
   pageChange = output<{ page: number; size: number }>();
 
@@ -19,8 +19,7 @@ export class Pagination {
   first = computed(() => (this.currentPage() - 1) * this.pageSize());
 
   onPageChange(event: PaginatorState) {
-    const page =
-      Math.floor((event.first ?? 0) / (event.rows ?? this.pageSize())) + 1;
+    const page = Math.floor((event.first ?? 0) / (event.rows ?? this.pageSize())) + 1;
     const size = event.rows ?? this.pageSize();
     this.pageChange.emit({ page, size });
   }

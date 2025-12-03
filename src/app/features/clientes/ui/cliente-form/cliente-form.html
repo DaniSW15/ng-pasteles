@@ -1,1 +1,50 @@
-<p>cliente-form works!</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="cliente-form">
+
+    <!-- Nombre -->
+    <div class="field">
+        <label for="nombre">Nombre completo *</label>
+        <input pInputText id="nombre" formControlName="nombre" placeholder="Ej: Juan Pérez"
+            [class.ng-invalid]="isFieldInvalid('nombre')" />
+        @if (isFieldInvalid('nombre')) {
+        <small class="error">{{ getErrorMessage('nombre') }}</small>
+        }
+    </div>
+
+    <!-- Email -->
+    <div class="field">
+        <label for="email">Email *</label>
+        <input pInputText id="email" type="email" formControlName="email" placeholder="ejemplo@correo.com"
+            [class.ng-invalid]="isFieldInvalid('email')" />
+        @if (isFieldInvalid('email')) {
+        <small class="error">{{ getErrorMessage('email') }}</small>
+        }
+    </div>
+
+    <!-- Teléfono -->
+    <div class="field">
+        <label for="telefono">Teléfono *</label>
+        <input pInputText id="telefono" formControlName="telefono" placeholder="5551234567 (10 dígitos)" maxlength="10"
+            [class.ng-invalid]="isFieldInvalid('telefono')" />
+        @if (isFieldInvalid('telefono')) {
+        <small class="error">{{ getErrorMessage('telefono') }}</small>
+        }
+    </div>
+
+    <!-- Dirección -->
+    <div class="field">
+        <label for="direccion">Dirección *</label>
+        <textarea pInputTextarea id="direccion" formControlName="direccion" rows="3"
+            placeholder="Calle, número, colonia, ciudad..." [class.ng-invalid]="isFieldInvalid('direccion')"></textarea>
+        @if (isFieldInvalid('direccion')) {
+        <small class="error">{{ getErrorMessage('direccion') }}</small>
+        }
+    </div>
+
+    <!-- Botones -->
+    <div class="form-actions">
+        <p-button label="Cancelar" icon="pi pi-times" (onClick)="onCancel()" [text]="true" severity="secondary" />
+        <p-button [label]="isEditMode ? 'Actualizar' : 'Crear'" icon="pi pi-check" type="submit"
+            [disabled]="form.invalid" />
+    </div>
+
+</form>

@@ -1,1 +1,60 @@
-<p>pastel-card works!</p>
+<p-card class="pastel-card">
+  <ng-template pTemplate="header">
+    <div class="card-image">
+      <img [src]="getImageUrl()" [alt]="pastel().nombre" />
+      @if (pastel().disponible) {
+        <span class="badge-disponible">Disponible</span>
+      } @else {
+        <span class="badge-no-disponible">No disponible</span>
+      }
+    </div>
+  </ng-template>
+
+  <div class="card-content">
+    <h3 class="card-title">{{ pastel().nombre }}</h3>
+    <p class="card-price">{{ pastel().precio | currency:'USD':'symbol':'1.2-2' }}</p>
+    
+    @if (pastel().categoria) {
+      <p class="card-categoria">
+        <i class="pi pi-tag"></i>
+        {{ pastel().categoria }}
+      </p>
+    }
+    
+    <p class="card-descripcion">{{ pastel().descripcion }}</p>
+    
+    <p class="card-fecha">
+      <i class="pi pi-calendar"></i>
+      {{ pastel().fechaCreacion | date:'dd/MM/yyyy' }}
+    </p>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <div class="card-actions">
+      <p-button 
+        icon="pi pi-eye" 
+        [rounded]="true"
+        [text]="true"
+        severity="info"
+        (onClick)="onSelect()"
+        pTooltip="Ver detalles"
+      />
+      <p-button 
+        icon="pi pi-pen-to-square" 
+        [rounded]="true"
+        [text]="true"
+        severity="warn"
+        (onClick)="onEdit()"
+        pTooltip="Editar"
+      />
+      <p-button 
+        icon="pi pi-trash" 
+        [rounded]="true"
+        [text]="true"
+        severity="danger"
+        (onClick)="onDelete()"
+        pTooltip="Eliminar"
+      />
+    </div>
+  </ng-template>
+</p-card>

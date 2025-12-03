@@ -1,0 +1,53 @@
+.pastel-form {
+  padding: 1rem;
+
+  .field {
+    margin-bottom: 1.5rem;
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #495057;
+    }
+
+    input,
+    textarea,
+    p-inputNumber {
+      width: 100%;
+    }
+
+    .error {
+      display: block;
+      color: #dc3545;
+      margin-top: 0.25rem;
+      font-size: 0.875rem;
+    }
+
+    .ng-invalid {
+      border-color: #dc3545;
+    }
+  }
+
+  .field-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+
+    label {
+      margin: 0;
+      font-weight: 500;
+      cursor: pointer;
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #dee2e6;
+  }
+}

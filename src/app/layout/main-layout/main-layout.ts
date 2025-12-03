@@ -12,7 +12,9 @@ import { Sidebar } from '../sidebar/sidebar';
   styleUrl: './main-layout.scss',
 })
 export class MainLayout {
-  sidebarVisible = signal(true);
+  // En desktop: sidebar visible por defecto
+  // En móvil/tablet: sidebar oculto por defecto
+  sidebarVisible = signal(this.isDesktop());
 
   menuItems: MenuItem[] = [
     {
@@ -43,5 +45,9 @@ export class MainLayout {
 
   toggleSidebar() {
     this.sidebarVisible.update(v => !v);
+  }
+
+  private isDesktop(): boolean {
+    return typeof window !== 'undefined' && window.innerWidth > 1024;
   }
 }

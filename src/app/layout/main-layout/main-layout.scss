@@ -6,7 +6,7 @@
 
 .layout-main {
   flex: 1;
-  padding: 2rem;
+  padding: 1rem 2rem 2rem 2rem;
   margin-left: 300px;
   margin-top: 60px;
   transition: margin-left 0.3s ease;
@@ -16,7 +16,29 @@
   }
 
   .content-wrapper {
-    margin-top: 1rem;
+    margin-top: 0;
+  }
+
+  // 📱 MÓVIL (< 768px)
+  @media (max-width: 767px) {
+    margin-left: 0 !important;
+    padding: 1rem;
+    margin-top: 60px;
+  }
+
+  // 📱 TABLET (768px - 1024px)
+  @media (min-width: 768px) and (max-width: 1024px) {
+    margin-left: 0 !important;
+    padding: 1.5rem;
+  }
+
+  // 💻 LAPTOP/DESKTOP (> 1024px)
+  @media (min-width: 1025px) {
+    margin-left: 300px;
+    
+    &.sidebar-collapsed {
+      margin-left: 0;
+    }
   }
 }
 
@@ -29,5 +51,20 @@
 
   &.sidebar-collapsed {
     margin-left: 0;
+  }
+
+  // 📱 MÓVIL y TABLET
+  @media (max-width: 1024px) {
+    margin-left: 0 !important;
+    font-size: 0.875rem;
+  }
+
+  // 💻 LAPTOP/DESKTOP
+  @media (min-width: 1025px) {
+    margin-left: 300px;
+    
+    &.sidebar-collapsed {
+      margin-left: 0;
+    }
   }
 }

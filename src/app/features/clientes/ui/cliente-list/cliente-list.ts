@@ -3,10 +3,11 @@ import { ICliente } from '../../data-access/models/cliente.model';
 import { TableColumn, DataTable } from '@app/shared/components/data-table/data-table';
 import { LoadingSpinner } from "@app/shared/components/loading-spinner/loading-spinner";
 import { Pagination } from "@app/shared/components/pagination/pagination";
+import { ClienteCard } from '../cliente-card/cliente-card';
 
 @Component({
   selector: 'app-cliente-list',
-  imports: [LoadingSpinner, DataTable, Pagination],
+  imports: [LoadingSpinner, DataTable, Pagination, ClienteCard],
   templateUrl: './cliente-list.html',
   styleUrl: './cliente-list.scss',
 })
@@ -16,12 +17,14 @@ export class ClienteList {
   loading = input<boolean>(false);
   error = input<string | null>(null);
   currentPage = input<number>(1);
-  pageSize = input<number>(10);
+  pageSize = input<number>(5);
   totalCount = input<number>(0);
+  viewMode = input<'table' | 'grid'>('table');
 
   // Outputs
   pageChange = output<{ page: number; size: number;}>();
   clienteSelect = output<string>();
+  clienteEdit = output<string>();
   clienteDelete = output<string>();
 
   columns: TableColumn[] = [
@@ -34,6 +37,10 @@ export class ClienteList {
 
   onRowSelect(cliente: ICliente) {
     this.clienteSelect.emit(cliente.id);
+  }
+
+  onRowEdit(cliente: ICliente) {
+    this.clienteEdit.emit(cliente.id);
   }
 
   onRowDelete(cliente: ICliente) {

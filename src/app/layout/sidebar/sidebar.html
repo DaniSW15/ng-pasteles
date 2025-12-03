@@ -1,16 +1,18 @@
 <p-drawer
   [visible]="visible()"
-  [modal]="false"
-  [showCloseIcon]="false"
-  [dismissible]="false"
+  [modal]="isMobileView()"
+  [showCloseIcon]="isMobileView()"
+  [dismissible]="isMobileView()"
+  (onHide)="onClose()"
   styleClass="layout-sidebar"
   position="left"
 >
-  <ng-template pTemplate="header">
-    <div class="sidebar-header">
-      <i class="pi pi-birthday-cake" style="font-size: 2rem"></i>
-      <span class="sidebar-title">Pasteles</span>
-    </div>
-  </ng-template>
-  <p-panelmenu [model]="menuItems()" />
+  <div class="sidebar-header">
+    <i class="pi pi-birthday-cake"></i>
+    <span class="sidebar-title">Pasteles</span>
+  </div>
+  
+  <div class="sidebar-content">
+    <p-menu [model]="menuItems()" />
+  </div>
 </p-drawer>

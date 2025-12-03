@@ -1,0 +1,20 @@
+.pastel-list {
+  .error {
+    padding: 1rem;
+    background-color: #f8d7da;
+    color: #721c24;
+    border-radius: 0.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .pasteles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}

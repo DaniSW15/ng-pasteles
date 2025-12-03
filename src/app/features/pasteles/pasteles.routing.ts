@@ -14,6 +14,10 @@ export const pastelesRoutes: Routes = [
     loadComponent: () => import('./feature/pasteles-detail-page/pasteles-detail-page').then(m => m.PastelesDetailPage)
   },
   {
+    path: ':id/editar',
+    loadComponent: () => import('./feature/pastel-detail-page/pastel-detail-page').then(m => m.PastelDetailPage)
+  },
+  {
     path: 'test',
     loadComponent: () => import('./feature/pasteles-list-page-v2/pasteles-list-page-v2').then(m => m.PastelesListPageV2)
   },
