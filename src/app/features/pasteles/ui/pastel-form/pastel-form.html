@@ -15,19 +15,18 @@
     }
   </div>
 
-  <!-- Descripción -->
+  <!-- Sabor -->
   <div class="field">
-    <label for="descripcion">Descripción *</label>
-    <textarea 
-      pInputTextarea 
-      id="descripcion" 
-      formControlName="descripcion"
-      rows="3"
-      placeholder="Describe el pastel..."
-      [class.ng-invalid]="isFieldInvalid('descripcion')"
-    ></textarea>
-    @if (isFieldInvalid('descripcion')) {
-      <small class="error">{{ getErrorMessage('descripcion') }}</small>
+    <label for="sabor">Sabor *</label>
+    <input 
+      pInputText 
+      id="sabor" 
+      formControlName="sabor"
+      placeholder="Ej: Chocolate, Vainilla, Fresa"
+      [class.ng-invalid]="isFieldInvalid('sabor')"
+    />
+    @if (isFieldInvalid('sabor')) {
+      <small class="error">{{ getErrorMessage('sabor') }}</small>
     }
   </div>
 
@@ -48,36 +47,19 @@
     }
   </div>
 
-  <!-- Categoría -->
+  <!-- Stock -->
   <div class="field">
-    <label for="categoria">Categoría</label>
-    <input 
-      pInputText 
-      id="categoria" 
-      formControlName="categoria"
-      placeholder="Ej: Chocolate, Vainilla, Frutas"
+    <label for="stock">Stock *</label>
+    <p-inputNumber 
+      inputId="stock"
+      formControlName="stock"
+      [showButtons]="true"
+      [min]="0"
+      [class.ng-invalid]="isFieldInvalid('stock')"
     />
-  </div>
-
-  <!-- Imagen URL -->
-  <div class="field">
-    <label for="imagenUrl">URL de imagen</label>
-    <input 
-      pInputText 
-      id="imagenUrl" 
-      formControlName="imagenUrl"
-      placeholder="https://ejemplo.com/imagen.jpg"
-    />
-  </div>
-
-  <!-- Disponible -->
-  <div class="field-checkbox">
-    <p-checkbox 
-      inputId="disponible"
-      formControlName="disponible"
-      [binary]="true"
-    />
-    <label for="disponible">Disponible para venta</label>
+    @if (isFieldInvalid('stock')) {
+      <small class="error">{{ getErrorMessage('stock') }}</small>
+    }
   </div>
 
   <!-- Botones -->

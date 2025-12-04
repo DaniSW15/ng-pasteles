@@ -36,11 +36,9 @@ export class PastelForm implements OnInit {
 
     this.form = this.fb.group({
       nombre: [this.pastel?.nombre || '', [Validators.required, Validators.minLength(3)]],
-      descripcion: [this.pastel?.descripcion || '', [Validators.required, Validators.minLength(10)]],
+      sabor: [this.pastel?.sabor || '', [Validators.required, Validators.minLength(3)]],
       precio: [this.pastel?.precio || 0, [Validators.required, Validators.min(0.01)]],
-      disponible: [this.pastel?.disponible ?? true],
-      imagenUrl: [this.pastel?.imagenUrl || ''],
-      categoria: [this.pastel?.categoria || '']
+      stock: [this.pastel?.stock || 0, [Validators.required, Validators.min(0)]]
     });
   }
 

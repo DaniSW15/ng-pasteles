@@ -19,7 +19,7 @@ export class Sidebar {
 
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);
-  
+
   // Detectar si es móvil para mostrar/ocultar botón X
   isMobileView = signal(this.isMobile());
 

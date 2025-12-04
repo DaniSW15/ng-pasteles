@@ -30,11 +30,9 @@ export class PastelList {
   // Columnas de la tabla
   columns: TableColumn[] = [
     { field: 'nombre', header: 'Nombre', sortable: true },
-    { field: 'descripcion', header: 'Descripción', sortable: true },
+    { field: 'sabor', header: 'Sabor', sortable: true },
     { field: 'precio', header: 'Precio', sortable: true },
-    { field: 'categoria', header: 'Categoría', sortable: true },
-    { field: 'disponible', header: 'Disponible', sortable: true },
-    { field: 'fechaCreacion', header: 'Fecha Creación', sortable: true }
+    { field: 'stock', header: 'Stock', sortable: true },
   ];
 
   onRowSelect(pastel: Pastel) {

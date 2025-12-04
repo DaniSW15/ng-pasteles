@@ -32,6 +32,6 @@ export class PastelCard {
   }
 
   getImageUrl(): string {
-    return this.pastel().imagenUrl || 'https://via.placeholder.com/300x200?text=Sin+Imagen';
+    return 'https://via.placeholder.com/300x200?text=' + encodeURIComponent(this.pastel().sabor);
   }
 }

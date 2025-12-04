@@ -1,0 +1,135 @@
+.perfil-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+
+  .perfil-header {
+    margin-bottom: 2rem;
+
+    h1 {
+      margin: 0 0 0.5rem 0;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #212529;
+    }
+
+    p {
+      margin: 0;
+      color: #6c757d;
+      font-size: 1rem;
+    }
+  }
+
+  .perfil-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    .user-card,
+    .password-card {
+      ::ng-deep .p-card-header {
+        .card-header {
+          display: flex;
+          align-items: center;
+          gap: 1.5rem;
+          padding: 2rem;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          color: white;
+
+          .user-info {
+            flex: 1;
+
+            h2 {
+              margin: 0 0 0.5rem 0;
+              font-size: 1.5rem;
+              font-weight: 700;
+            }
+
+            p {
+              margin: 0 0 0.5rem 0;
+              opacity: 0.9;
+            }
+
+            .role-badge {
+              display: inline-block;
+              padding: 0.25rem 0.75rem;
+              border-radius: 1rem;
+              font-size: 0.75rem;
+              font-weight: 600;
+              background-color: rgba(255, 255, 255, 0.2);
+              color: white;
+
+              &.admin {
+                background-color: rgba(255, 255, 255, 0.3);
+              }
+            }
+          }
+        }
+
+        h3 {
+          margin: 0;
+          padding: 1.5rem;
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: #212529;
+          border-bottom: 1px solid #dee2e6;
+        }
+      }
+
+      ::ng-deep .p-card-body {
+        padding: 2rem;
+      }
+
+      .field {
+        margin-bottom: 1.5rem;
+
+        label {
+          display: block;
+          font-weight: 600;
+          margin-bottom: 0.5rem;
+          color: #495057;
+        }
+
+        input {
+          width: 100%;
+        }
+
+        .error {
+          display: block;
+          color: #dc3545;
+          margin-top: 0.25rem;
+          font-size: 0.875rem;
+        }
+
+        input.ng-invalid.ng-touched {
+          border-color: #dc3545;
+        }
+
+        input:disabled {
+          background-color: #f8f9fa;
+          cursor: not-allowed;
+        }
+      }
+
+      .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.5rem;
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #dee2e6;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+
+    .perfil-content {
+      .user-card ::ng-deep .p-card-header .card-header {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  }
+}

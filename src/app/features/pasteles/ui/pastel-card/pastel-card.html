@@ -2,10 +2,10 @@
   <ng-template pTemplate="header">
     <div class="card-image">
       <img [src]="getImageUrl()" [alt]="pastel().nombre" />
-      @if (pastel().disponible) {
-        <span class="badge-disponible">Disponible</span>
+      @if (pastel().stock > 0) {
+        <span class="badge-disponible">Stock: {{ pastel().stock }}</span>
       } @else {
-        <span class="badge-no-disponible">No disponible</span>
+        <span class="badge-no-disponible">Sin stock</span>
       }
     </div>
   </ng-template>
@@ -14,19 +14,17 @@
     <h3 class="card-title">{{ pastel().nombre }}</h3>
     <p class="card-price">{{ pastel().precio | currency:'USD':'symbol':'1.2-2' }}</p>
     
-    @if (pastel().categoria) {
-      <p class="card-categoria">
-        <i class="pi pi-tag"></i>
-        {{ pastel().categoria }}
+    <p class="card-sabor">
+      <i class="pi pi-star"></i>
+      Sabor: {{ pastel().sabor }}
+    </p>
+    
+    @if (pastel().fechaCreacion) {
+      <p class="card-fecha">
+        <i class="pi pi-calendar"></i>
+        {{ pastel().fechaCreacion | date:'dd/MM/yyyy' }}
       </p>
     }
-    
-    <p class="card-descripcion">{{ pastel().descripcion }}</p>
-    
-    <p class="card-fecha">
-      <i class="pi pi-calendar"></i>
-      {{ pastel().fechaCreacion | date:'dd/MM/yyyy' }}
-    </p>
   </div>
 
   <ng-template pTemplate="footer">

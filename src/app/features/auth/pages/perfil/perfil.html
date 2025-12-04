@@ -1,0 +1,151 @@
+<div class="perfil-container">
+  <div class="perfil-header">
+    <h1>Mi Perfil</h1>
+    <p>Administra tu información personal</p>
+  </div>
+
+  <div class="perfil-content">
+    <!-- Tarjeta de información del usuario -->
+    <p-card class="user-card">
+      <ng-template pTemplate="header">
+        <div class="card-header">
+          <p-avatar 
+            [label]="getUserInitials()" 
+            size="xlarge"
+            shape="circle" 
+            [style]="{ 'background-color': getAvatarColor(), 'color': '#ffffff', 'font-size': '2rem' }"
+          />
+          <div class="user-info">
+            <h2>{{ currentUser()?.nombre }}</h2>
+            <p>{{ currentUser()?.email }}</p>
+            @if (currentUser()?.rol) {
+              <span class="role-badge" [class.admin]="currentUser()?.rol === 'Admin'">
+                {{ currentUser()?.rol === 'Admin' ? 'Administrador' : 'Usuario' }}
+              </span>
+            }
+          </div>
+        </div>
+      </ng-template>
+
+      <form [formGroup]="profileForm" (ngSubmit)="onSaveProfile()">
+        <div class="field">
+          <label for="nombre">Nombre completo</label>
+          <input 
+            pInputText 
+            id="nombre" 
+            formControlName="nombre"
+            [class.ng-invalid]="isFieldInvalid(profileForm, 'nombre')"
+          />
+          @if (isFieldInvalid(profileForm, 'nombre')) {
+            <small class="error">{{ getErrorMessage(profileForm, 'nombre') }}</small>
+          }
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input 
+            pInputText 
+            id="email" 
+            type="email"
+            formControlName="email"
+            [class.ng-invalid]="isFieldInvalid(profileForm, 'email')"
+          />
+          @if (isFieldInvalid(profileForm, 'email')) {
+            <small class="error">{{ getErrorMessage(profileForm, 'email') }}</small>
+          }
+        </div>
+
+        <div class="form-actions">
+          @if (!editMode()) {
+            <p-button 
+              label="Editar Perfil" 
+              icon="pi pi-pencil"
+              (onClick)="toggleEditMode()"
+              severity="secondary"
+            />
+          } @else {
+            <p-button 
+              label="Cancelar" 
+              icon="pi pi-times"
+              (onClick)="toggleEditMode()"
+              [text]="true"
+              severity="secondary"
+            />
+            <p-button 
+              label="Guardar Cambios" 
+              icon="pi pi-check"
+              type="submit"
+              [loading]="loading()"
+              [disabled]="profileForm.invalid"
+            />
+          }
+        </div>
+      </form>
+    </p-card>
+
+    <!-- Tarjeta de cambio de contraseña -->
+    <p-card class="password-card">
+      <ng-template pTemplate="header">
+        <h3>Cambiar Contraseña</h3>
+      </ng-template>
+
+      <form [formGroup]="passwordForm" (ngSubmit)="onChangePassword()">
+        <div class="field">
+          <label for="currentPassword">Contraseña actual</label>
+          <input 
+            pInputText 
+            id="currentPassword" 
+            type="password"
+            formControlName="currentPassword"
+            placeholder="••••••••"
+            [class.ng-invalid]="isFieldInvalid(passwordForm, 'currentPassword')"
+          />
+          @if (isFieldInvalid(passwordForm, 'currentPassword')) {
+            <small class="error">{{ getErrorMessage(passwordForm, 'currentPassword') }}</small>
+          }
+        </div>
+
+        <div class="field">
+          <label for="newPassword">Nueva contraseña</label>
+          <input 
+            pInputText 
+            id="newPassword" 
+            type="password"
+            formControlName="newPassword"
+            placeholder="••••••••"
+            [class.ng-invalid]="isFieldInvalid(passwordForm, 'newPassword')"
+          />
+          @if (isFieldInvalid(passwordForm, 'newPassword')) {
+            <small class="error">{{ getErrorMessage(passwordForm, 'newPassword') }}</small>
+          }
+        </div>
+
+        <div class="field">
+          <label for="confirmPassword">Confirmar nueva contraseña</label>
+          <input 
+            pInputText 
+            id="confirmPassword" 
+            type="password"
+            formControlName="confirmPassword"
+            placeholder="••••••••"
+            [class.ng-invalid]="isFieldInvalid(passwordForm, 'confirmPassword')"
+          />
+          @if (isFieldInvalid(passwordForm, 'confirmPassword')) {
+            <small class="error">{{ getErrorMessage(passwordForm, 'confirmPassword') }}</small>
+          }
+        </div>
+
+        <div class="form-actions">
+          <p-button 
+            label="Cambiar Contraseña" 
+            icon="pi pi-lock"
+            type="submit"
+            [loading]="loading()"
+            [disabled]="passwordForm.invalid"
+            severity="warn"
+          />
+        </div>
+      </form>
+    </p-card>
+  </div>
+</div>

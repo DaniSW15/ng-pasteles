@@ -1,0 +1,77 @@
+<div class="pedido-create-page">
+    <div class="page-header">
+        <h1>Crear Nuevo Pedido</h1>
+    </div>
+
+    <form [formGroup]="pedidoForm" (ngSubmit)="onSubmit()">
+        <p-card>
+            <ng-template pTemplate="header">
+                <h3>Detalles del Pedido</h3>
+            </ng-template>
+
+            <div formArrayName="detalles">
+                @for (detalle of detalles.controls; track $index) {
+                <div class="detalle-item" [formGroupName]="$index">
+                    <div class="detalle-fields">
+                        <!-- Selector de Pastel -->
+                        <div class="field">
+                            <label>Pastel *</label>
+                            <select formControlName="pastelId" required>
+                                <option value="">Selecciona un pastel</option>
+                                @for (pastel of pastelesStore.pasteles(); track pastel.id) {
+                                <option [value]="pastel.id">
+                                    {{ pastel.nombre }} - ${{ pastel.precio }}
+                                </option>
+                                }
+                            </select>
+                        </div>
+
+                        <!-- Cantidad -->
+                        <div class="field">
+                            <label>Cantidad *</label>
+                            <input 
+                                type="number"
+                                formControlName="cantidad"
+                                min="1"
+                                max="100"
+                                required
+                            />
+                        </div>
+
+                        <!-- Subtotal -->
+                        <div class="field">
+                            <label>Subtotal</label>
+                            <div class="subtotal">
+                                ${{ calcularSubtotal($index) | number:'1.2-2' }}
+                            </div>
+                        </div>
+
+                        <!-- Botón eliminar -->
+                        <div class="field-actions">
+                            <p-button icon="pi pi-trash" severity="danger" [text]="true" [rounded]="true"
+                                (onClick)="eliminarDetalle($index)" [disabled]="detalles.length === 1" />
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+
+            <div class="add-detalle">
+                <p-button label="Agregar Pastel" icon="pi pi-plus" (onClick)="agregarDetalle()" [outlined]="true" />
+            </div>
+
+            <ng-template pTemplate="footer">
+                <div class="total-section">
+                    <h3>Total: ${{ calcularTotal() | number:'1.2-2' }}</h3>
+                </div>
+
+                <div class="form-actions">
+                    <p-button label="Cancelar" icon="pi pi-times" (onClick)="cancelar()" [text]="true"
+                        severity="secondary" />
+                    <p-button label="Crear Pedido" icon="pi pi-check" type="submit"
+                        [disabled]="pedidoForm.invalid || loading()" [loading]="loading()" />
+                </div>
+            </ng-template>
+        </p-card>
+    </form>
+</div>

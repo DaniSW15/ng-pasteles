@@ -1,1 +1,21 @@
-<p>pedidos-list-page works!</p>
+<div class="pedidos-page">
+  <div class="page-header">
+    <h1>Pedidos</h1>
+    <p-button 
+      label="Nuevo Pedido" 
+      icon="pi pi-plus" 
+      (onClick)="crearPedido()"
+    />
+  </div>
+
+  <div class="page-content">
+    <app-pedido-list
+      [pedidos]="store.pedidos()"
+      [loading]="store.loading()"
+      [error]="store.error()"
+      (pedidoSelect)="onPedidoSelect($event)"
+      (pedidoEdit)="onPedidoEdit($event)"
+      (pedidoDelete)="onPedidoDelete($event)"
+    />
+  </div>
+</div>

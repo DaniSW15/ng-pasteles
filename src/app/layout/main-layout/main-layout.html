@@ -3,11 +3,7 @@
   <app-header (toggleSidebarEvent)="toggleSidebar()" />
 
   <!-- Sidebar -->
-  <app-sidebar 
-    [visible]="sidebarVisible()" 
-    [menuItems]="menuItems"
-    (closeSidebar)="toggleSidebar()"
-  />
+  <app-sidebar [visible]="sidebarVisible()" [menuItems]="menuItems()" (closeSidebar)="toggleSidebar()" />
 
   <!-- Main Content -->
   <main class="layout-main" [class.sidebar-collapsed]="!sidebarVisible()">

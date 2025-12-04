@@ -1,4 +1,4 @@
-<p-toolbar styleClass="layout-header">
+<p-toolbar [style]="{ 'position': 'fixed', 'top': '0', 'left': '0', 'right': '0', 'z-index': '1000', 'border-bottom': '1px solid var(--surface-border)' }">
   <ng-template pTemplate="start">
     <button
       pButton
@@ -9,7 +9,43 @@
     ></button>
     <span class="app-title">Gestión de Pasteles</span>
   </ng-template>
+  
   <ng-template pTemplate="end">
-    <p-avatar label="U" shape="circle" [style]="{ 'background-color': '#9c27b0', color: '#ffffff' }" />
+    @if (currentUser()) {
+      <div class="user-info">
+        <!-- Nombre y rol -->
+        <div class="user-details">
+          <span class="user-name">{{ currentUser()?.nombre }}</span>
+          @if (currentUser()?.rol) {
+            <span class="user-role" [class.admin]="currentUser()?.rol === 'Admin'">
+              {{ currentUser()?.rol === 'Admin' ? 'Administrador' : 'Usuario' }}
+            </span>
+          }
+        </div>
+
+        <!-- Avatar con menú -->
+        <p-avatar 
+          [label]="userInitials()" 
+          shape="circle" 
+          [style]="{ 'background-color': getAvatarColor(), 'color': '#ffffff', 'cursor': 'pointer' }"
+          (click)="toggleUserMenu($event, userMenu)"
+        />
+        
+        <!-- Menú desplegable -->
+        <p-menu 
+          #userMenu 
+          [model]="userMenuItems" 
+          [popup]="true"
+          appendTo="body"
+        />
+      </div>
+    } @else {
+      <!-- Skeleton mientras carga -->
+      <p-avatar 
+        label="..." 
+        shape="circle" 
+        [style]="{ 'background-color': '#e0e0e0', 'color': '#9e9e9e' }"
+      />
+    }
   </ng-template>
 </p-toolbar>

@@ -1,10 +1,8 @@
 export interface CreatePastelModel {
     nombre: string;
-    descripcion: string;
+    sabor: string;
     precio: number;
-    disponible: boolean;
-    imagenUrl?: string;
-    categoria?: string;
+    stock: number;
 }
 
 export interface UpdatePastel extends Partial<CreatePastelModel> {
