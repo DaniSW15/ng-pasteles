@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { TagModule } from 'primeng/tag';
 import { EstadoPedido, getEstadoLabel, getEstadoSeverity } from '../../data-access/models/pedido.model';
 
@@ -8,19 +8,20 @@ import { EstadoPedido, getEstadoLabel, getEstadoSeverity } from '../../data-acce
   imports: [TagModule],
   template: `
     <p-tag 
-      [value]="label()" 
-      [severity]="severity()"
-    />
-  `,
-  styles: [`
-    :host {
-      display: inline-block;
-    }
-  `]
+      [value]="getLabel()" 
+      [severity]="getSeverity()"
+      [rounded]="true">
+    </p-tag>
+  `
 })
 export class PedidoStatusBadge {
-  estado = input.required<EstadoPedido>();
-  
-  label = () => getEstadoLabel(this.estado());
-  severity = () => getEstadoSeverity(this.estado());
+  @Input() estado!: EstadoPedido;
+
+  getLabel(): string {
+    return getEstadoLabel(this.estado);
+  }
+
+  getSeverity(): 'success' | 'info' | 'warn' | 'danger' {
+    return getEstadoSeverity(this.estado);
+  }
 }

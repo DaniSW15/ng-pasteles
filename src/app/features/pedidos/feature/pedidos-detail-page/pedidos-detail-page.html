@@ -1,1 +1,106 @@
-<p>pedidos-detail-page works!</p>
+<div class="pedido-detail-container">
+    <div class="page-header">
+        <h1>
+            <i class="pi pi-shopping-cart"></i>
+            Detalle del Pedido
+        </h1>
+        <p-button label="Volver" icon="pi pi-arrow-left" [outlined]="true" (onClick)="volver()">
+        </p-button>
+    </div>
+
+    @if (store.loading()) {
+    <div class="loading-message">
+        <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+        <p>Cargando pedido...</p>
+    </div>
+    }
+
+    @if (!store.loading() && !pedido() && store.error()) {
+    <div class="empty-message">
+        <i class="pi pi-exclamation-triangle" style="font-size: 3rem; color: var(--red-500)"></i>
+        <p>{{ store.error() }}</p>
+        <p-button label="Volver" icon="pi pi-arrow-left" (onClick)="volver()"></p-button>
+    </div>
+    }
+
+    @if (!store.loading() && !pedido() && !store.error()) {
+    <div class="empty-message">
+        <i class="pi pi-inbox" style="font-size: 3rem"></i>
+        <p>No se encontró el pedido</p>
+        <p-button label="Volver" icon="pi pi-arrow-left" (onClick)="volver()"></p-button>
+    </div>
+    }
+
+    @if (!store.loading() && pedido()) {
+    <div class="pedido-content">
+        <p-card>
+            <ng-template pTemplate="header">
+                <div class="card-header">
+                    <div class="header-info">
+                        <h2>Pedido #{{ pedido()!.id.substring(0, 8) }}</h2>
+                        <app-pedido-status-badge [estado]="pedido()!.estado" />
+                    </div>
+                </div>
+            </ng-template>
+
+            <div class="pedido-info-grid">
+                <div class="info-section">
+                    <h3>Información General</h3>
+                    <div class="info-row">
+                        <span class="label">Cliente:</span>
+                        <span class="value">{{ pedido()!.clienteNombre }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">Fecha:</span>
+                        <span class="value">{{ pedido()!.fechaPedido | date: 'dd/MM/yyyy HH:mm' }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">Total:</span>
+                        <span class="value total">{{ pedido()!.total | currency: 'USD':'symbol':'1.2-2' }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detalles-section">
+                <h3>Productos</h3>
+                <p-table [value]="pedido()!.detalles" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unitario</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-detalle>
+                        <tr>
+                            <td>{{ detalle.pastelNombre }}</td>
+                            <td>{{ detalle.cantidad }}</td>
+                            <td>{{ detalle.precioUnitario | currency: 'USD':'symbol':'1.2-2' }}</td>
+                            <td>{{ detalle.subtotal | currency: 'USD':'symbol':'1.2-2' }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+
+            <ng-template pTemplate="footer">
+                <div class="card-actions">
+                    @if (canChangeStatus()) {
+                    <p-button label="Cambiar Estado" icon="pi pi-pencil" severity="warn" (onClick)="cambiarEstado()">
+                    </p-button>
+                    }
+                    @if (canCancel()) {
+                    <p-button label="Cancelar Pedido" icon="pi pi-times" severity="danger" [outlined]="true"
+                        (onClick)="cancelarPedido()">
+                    </p-button>
+                    }
+                    @if (isAdmin()) {
+                    <p-button label="Eliminar" icon="pi pi-trash" severity="danger" (onClick)="eliminarPedido()">
+                    </p-button>
+                    }
+                </div>
+            </ng-template>
+        </p-card>
+    </div>
+    }
+</div>

@@ -1,21 +1,28 @@
-@if (loading()) {
-  <app-loading-spinner />
-} @else if (error()) {
-  <div class="error-message">
-    <i class="pi pi-exclamation-triangle"></i>
-    <p>{{ error() }}</p>
-  </div>
-} @else if (pedidos().length === 0) {
-  <div class="empty-state">
-    <i class="pi pi-inbox"></i>
-    <p>No hay pedidos disponibles</p>
-  </div>
-} @else {
-  <app-data-table
-    [data]="pedidos()"
-    [columns]="columns"
-    (rowSelect)="onRowSelect($event)"
-    (rowEdit)="onRowEdit($event)"
-    (rowDelete)="onRowDelete($event)"
-  />
-}
+<div class="pedidos-grid">
+  @if (loading) {
+    <div class="loading-message">
+      <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+      <p>Cargando pedidos...</p>
+    </div>
+  }
+
+  @if (!loading && pedidos.length === 0) {
+    <div class="empty-message">
+      <i class="pi pi-inbox" style="font-size: 3rem"></i>
+      <p>No hay pedidos disponibles</p>
+    </div>
+  }
+
+  @for (pedido of pedidos; track pedido?.id || $index) {
+    @if (pedido) {
+      <app-pedido-card
+        [pedido]="pedido"
+        [canEdit]="canEdit"
+        [canDelete]="canDelete"
+        (view)="onView($event)"
+        (edit)="onEdit($event)"
+        (delete)="onDelete($event)">
+      </app-pedido-card>
+    }
+  }
+</div>

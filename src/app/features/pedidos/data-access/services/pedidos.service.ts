@@ -1,7 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from '@env/environment';
 import { ApiService } from '@app/core/services/api/api-service';
 import { AuthService } from '@app/features/auth/data-access/services/auth.service';
 import { Pedido, CreatePedidoRequest, UpdatePedidoEstadoRequest } from '../models/pedido.model';
@@ -11,7 +12,9 @@ import { Pedido, CreatePedidoRequest, UpdatePedidoEstadoRequest } from '../model
 })
 export class PedidosService {
   private api = inject(ApiService);
+  private http = inject(HttpClient);
   private authService = inject(AuthService);
+  private baseUrl = environment.apiUrl;
 
   /**
    * Obtener todos los pedidos con paginación
@@ -93,10 +96,18 @@ export class PedidosService {
 
   /**
    * Actualizar el estado de un pedido
-   * PUT /api/Pedidos/{id}/estado
+   * PATCH /api/Pedidos/{id}/estado
+   * El backend espera solo el número del estado, no un objeto
    */
   updateEstado(id: string, request: UpdatePedidoEstadoRequest): Observable<Pedido> {
-    return this.api.put<Pedido>(`Pedidos/${id}/estado`, request);
+    // Enviar solo el valor numérico del estado con headers explícitos
+    return this.http.patch<Pedido>(
+      `${this.baseUrl}/Pedidos/${id}/estado`,
+      request.estado,
+      {
+        headers: { 'Content-Type': 'application/json' }
+      }
+    );
   }
 
   /**

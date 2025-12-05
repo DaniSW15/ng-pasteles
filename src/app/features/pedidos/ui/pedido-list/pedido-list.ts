@@ -1,43 +1,34 @@
-import { Component, input, output } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Pedido } from '../../data-access/models/pedido.model';
-import { DataTable, TableColumn } from '@app/shared/components/data-table/data-table';
-import { LoadingSpinner } from '@app/shared/components/loading-spinner/loading-spinner';
+import { PedidoCard } from '../pedido-card/pedido-card';
 
 @Component({
   selector: 'app-pedido-list',
   standalone: true,
-  imports: [DataTable, LoadingSpinner],
+  imports: [CommonModule, PedidoCard],
   templateUrl: './pedido-list.html',
-  styleUrl: './pedido-list.scss',
+  styleUrl: './pedido-list.scss'
 })
 export class PedidoList {
-  // Inputs
-  pedidos = input.required<Pedido[]>();
-  loading = input<boolean>(false);
-  error = input<string | null>(null);
+  @Input() pedidos: Pedido[] = [];
+  @Input() loading = false;
+  @Input() canEdit = false;
+  @Input() canDelete = false;
+  
+  @Output() pedidoSelect = new EventEmitter<string>();
+  @Output() pedidoEdit = new EventEmitter<string>();
+  @Output() pedidoDelete = new EventEmitter<string>();
 
-  // Outputs
-  pedidoSelect = output<string>();
-  pedidoEdit = output<string>();
-  pedidoDelete = output<string>();
-
-  // Columnas de la tabla
-  columns: TableColumn[] = [
-    { field: 'clienteNombre', header: 'Cliente', sortable: true },
-    { field: 'fechaPedido', header: 'Fecha', sortable: true },
-    { field: 'estado', header: 'Estado', sortable: true },
-    { field: 'total', header: 'Total', sortable: true }
-  ];
-
-  onRowSelect(pedido: Pedido) {
-    this.pedidoSelect.emit(pedido.id);
+  onView(id: string) {
+    this.pedidoSelect.emit(id);
   }
 
-  onRowEdit(pedido: Pedido) {
-    this.pedidoEdit.emit(pedido.id);
+  onEdit(id: string) {
+    this.pedidoEdit.emit(id);
   }
 
-  onRowDelete(pedido: Pedido) {
-    this.pedidoDelete.emit(pedido.id);
+  onDelete(id: string) {
+    this.pedidoDelete.emit(id);
   }
 }

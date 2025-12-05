@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UsersStore } from '../../data-access/store/users.store';
 import { CreateUserRequest } from '../../data-access/services/users.service';
@@ -10,6 +10,7 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { TagModule } from 'primeng/tag';
+import { ClientesApi } from '@app/features/clientes/data-access/services/clientes-api';
 
 @Component({
   selector: 'app-users-management',
@@ -30,9 +31,11 @@ import { TagModule } from 'primeng/tag';
 export class UsersManagement implements OnInit {
   store = inject(UsersStore);
   private fb = inject(FormBuilder);
+  private clientesApi = inject(ClientesApi);
 
   showDialog = false;
   userForm!: FormGroup;
+  syncing = signal(false);
 
   roles = [
     { label: 'Admin', value: 'Admin' },
@@ -107,5 +110,23 @@ export class UsersManagement implements OnInit {
       return `Mínimo ${minLength} caracteres`;
     }
     return '';
+  }
+
+  async syncClientes() {
+    if (!confirm('¿Sincronizar usuarios de Identity con la tabla Clientes?')) {
+      return;
+    }
+
+    this.syncing.set(true);
+    try {
+      const response = await this.clientesApi.syncClientes().toPromise();
+      console.log('Clientes sincronizados:', response);
+      alert('✅ Clientes sincronizados correctamente. Ahora puedes crear pedidos.');
+    } catch (error: any) {
+      console.error('Error al sincronizar:', error);
+      alert(`❌ Error al sincronizar: ${error.message || 'Error desconocido'}`);
+    } finally {
+      this.syncing.set(false);
+    }
   }
 }

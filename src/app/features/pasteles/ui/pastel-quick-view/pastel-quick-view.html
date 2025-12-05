@@ -23,13 +23,6 @@
         </p>
     </div>
 
-    @if (pastel.fechaCreacion) {
-        <div class="field">
-            <label>Fecha de creación</label>
-            <p>{{ pastel.fechaCreacion | date:'dd/MM/yyyy' }}</p>
-        </div>
-    }
-
     <div class="actions">
         <p-button label="Cerrar" icon="pi pi-times" (onClick)="close()" [text]="true" />
     </div>

@@ -1,21 +1,25 @@
-<div class="pedidos-page">
+<div class="pedidos-list-container">
   <div class="page-header">
-    <h1>Pedidos</h1>
+    <h1>
+      <i class="pi pi-shopping-cart"></i>
+      {{ isCliente() ? 'Mis Pedidos' : 'Gestión de Pedidos' }}
+    </h1>
     <p-button 
       label="Nuevo Pedido" 
-      icon="pi pi-plus" 
-      (onClick)="crearPedido()"
-    />
+      icon="pi pi-plus"
+      (onClick)="crearPedido()">
+    </p-button>
   </div>
 
   <div class="page-content">
     <app-pedido-list
       [pedidos]="store.pedidos()"
       [loading]="store.loading()"
-      [error]="store.error()"
+      [canEdit]="isEmpleado()"
+      [canDelete]="!isCliente() || isAdmin()"
       (pedidoSelect)="onPedidoSelect($event)"
       (pedidoEdit)="onPedidoEdit($event)"
-      (pedidoDelete)="onPedidoDelete($event)"
-    />
+      (pedidoDelete)="onPedidoDelete($event)">
+    </app-pedido-list>
   </div>
 </div>

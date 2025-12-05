@@ -1,23 +1,28 @@
-.error-message,
-.empty-state {
+.pedidos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.loading-message,
+.empty-message {
+  grid-column: 1 / -1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 3rem;
-  text-align: center;
   color: var(--text-color-secondary);
-
-  i {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-  }
-
+  
   p {
+    margin-top: 1rem;
     font-size: 1.1rem;
   }
 }
 
-.error-message {
-  color: var(--red-500);
+@media (max-width: 768px) {
+  .pedidos-grid {
+    grid-template-columns: 1fr;
+  }
 }

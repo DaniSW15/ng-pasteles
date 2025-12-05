@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Pastel } from '../../data-access/models/pastel.model';
-import { CurrencyPipe, DatePipe } from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-pastel-quick-view',
-  imports: [CurrencyPipe, DatePipe, ButtonModule],
+  imports: [CurrencyPipe, ButtonModule],
   templateUrl: './pastel-quick-view.html',
   styleUrl: './pastel-quick-view.scss',
 })

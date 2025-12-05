@@ -1,6 +1,6 @@
 import { Component, input, output } from '@angular/core';
 import { Pastel } from '../../data-access/models/pastel.model';
-import { CurrencyPipe, DatePipe } from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { TooltipModule } from 'primeng/tooltip';
@@ -8,7 +8,7 @@ import { TooltipModule } from 'primeng/tooltip';
 @Component({
   selector: 'app-pastel-card',
   standalone: true,
-  imports: [CurrencyPipe, DatePipe, ButtonModule, CardModule, TooltipModule],
+  imports: [CurrencyPipe, ButtonModule, CardModule, TooltipModule],
   templateUrl: './pastel-card.html',
   styleUrl: './pastel-card.scss',
 })

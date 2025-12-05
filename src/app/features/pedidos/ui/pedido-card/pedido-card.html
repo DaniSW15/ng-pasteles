@@ -1,1 +1,61 @@
-<p>pedido-card works!</p>
+<p-card>
+  <ng-template pTemplate="header">
+    <div class="card-header">
+      <div class="header-info">
+        <h3>Pedido #{{ pedido.id.substring(0, 8) }}</h3>
+        <app-pedido-status-badge [estado]="pedido.estado" />
+      </div>
+    </div>
+  </ng-template>
+
+  <div class="pedido-info">
+    <div class="info-row">
+      <span class="label">Cliente:</span>
+      <span class="value">{{ pedido.clienteNombre }}</span>
+    </div>
+    <div class="info-row">
+      <span class="label">Fecha:</span>
+      <span class="value">{{ pedido.fechaPedido | date: 'dd/MM/yyyy HH:mm' }}</span>
+    </div>
+    <div class="info-row">
+      <span class="label">Total:</span>
+      <span class="value total">{{ pedido.total | currency: 'USD':'symbol':'1.2-2' }}</span>
+    </div>
+    <div class="info-row">
+      <span class="label">Productos:</span>
+      <span class="value">{{ pedido.detalles.length }} item(s)</span>
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    @if (showActions) {
+      <div class="card-actions">
+        <p-button 
+          label="Ver" 
+          icon="pi pi-eye" 
+          [outlined]="true"
+          severity="info"
+          (onClick)="onView()">
+        </p-button>
+        @if (canEdit) {
+          <p-button 
+            label="Cambiar Estado" 
+            icon="pi pi-pencil" 
+            [outlined]="true"
+            severity="warn"
+            (onClick)="onEdit()">
+          </p-button>
+        }
+        @if (canDelete) {
+          <p-button 
+            label="Cancelar" 
+            icon="pi pi-times" 
+            [outlined]="true"
+            severity="danger"
+            (onClick)="onDelete()">
+          </p-button>
+        }
+      </div>
+    }
+  </ng-template>
+</p-card>

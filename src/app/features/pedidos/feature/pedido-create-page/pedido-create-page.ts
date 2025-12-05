@@ -1,7 +1,7 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
-import { DecimalPipe } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { PedidosStore } from '../../data-access/store/pedidos.store';
 import { PastelesStore } from '@app/features/pasteles/data-access/store/pasteles.store';
 import { CreatePedidoRequest, CreatePedidoDetalle } from '../../data-access/models/pedido.model';
@@ -13,8 +13,9 @@ import { AuthService } from '@app/features/auth/data-access/services/auth.servic
   selector: 'app-pedido-create-page',
   standalone: true,
   imports: [
+    CommonModule,
     ReactiveFormsModule,
-    DecimalPipe,
+    CurrencyPipe,
     ButtonModule,
     CardModule
   ],
@@ -92,20 +93,19 @@ export class PedidoCreatePage implements OnInit {
 
   onSubmit() {
     if (this.pedidoForm.invalid) {
-      Object.keys(this.pedidoForm.controls).forEach(key => {
-        this.pedidoForm.get(key)?.markAsTouched();
+      this.detalles.controls.forEach(control => {
+        control.markAllAsTouched();
       });
       return;
     }
 
-    this.loading.set(true);
-
     const clienteId = this.authService.currentUser()?.id;
     if (!clienteId) {
       alert('Error: Usuario no autenticado');
-      this.loading.set(false);
       return;
     }
+
+    this.loading.set(true);
 
     const detalles: CreatePedidoDetalle[] = this.detalles.value.map((d: any) => ({
       pastelId: d.pastelId,
@@ -119,10 +119,13 @@ export class PedidoCreatePage implements OnInit {
 
     this.pedidosStore.createPedido(pedidoData);
     
-    // Esperar un momento y redirigir
     setTimeout(() => {
       this.loading.set(false);
-      this.router.navigate(['/pedidos']);
+      if (this.pedidosStore.error()) {
+        alert(`Error al crear pedido: ${this.pedidosStore.error()}`);
+      } else {
+        this.router.navigate(['/pedidos']);
+      }
     }, 1000);
   }
 

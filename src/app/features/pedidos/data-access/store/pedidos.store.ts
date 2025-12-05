@@ -86,9 +86,10 @@ export const PedidosStore = signalStore(
               console.error('Error cargando pedido:', error);
               patchState(store, {
                 error: error.message || 'Error al cargar pedido',
+                selectedPedido: null,
                 loading: false
               });
-              return of(null);
+              return of();
             })
           )
         )
@@ -102,10 +103,12 @@ export const PedidosStore = signalStore(
         switchMap((pedido) =>
           pedidosService.createPedido(pedido).pipe(
             tap((newPedido) => {
-              patchState(store, {
-                pedidos: [...store.pedidos(), newPedido],
-                loading: false
-              });
+              if (newPedido) {
+                patchState(store, {
+                  pedidos: [...store.pedidos(), newPedido],
+                  loading: false
+                });
+              }
             }),
             catchError((error: any) => {
               console.error('Error creando pedido:', error);
@@ -113,7 +116,7 @@ export const PedidosStore = signalStore(
                 error: error.message || 'Error al crear pedido',
                 loading: false
               });
-              return of(null);
+              return of();
             })
           )
         )
@@ -127,11 +130,13 @@ export const PedidosStore = signalStore(
         switchMap(({ id, request }) =>
           pedidosService.updateEstado(id, request).pipe(
             tap((updatedPedido) => {
-              patchState(store, {
-                pedidos: store.pedidos().map(p => p.id === id ? updatedPedido : p),
-                selectedPedido: store.selectedPedido()?.id === id ? updatedPedido : store.selectedPedido(),
-                loading: false
-              });
+              if (updatedPedido) {
+                patchState(store, {
+                  pedidos: store.pedidos().map(p => p.id === id ? updatedPedido : p),
+                  selectedPedido: store.selectedPedido()?.id === id ? updatedPedido : store.selectedPedido(),
+                  loading: false
+                });
+              }
             }),
             catchError((error: any) => {
               console.error('Error actualizando estado:', error);
@@ -139,7 +144,7 @@ export const PedidosStore = signalStore(
                 error: error.message || 'Error al actualizar estado',
                 loading: false
               });
-              return of(null);
+              return of();
             })
           )
         )
@@ -153,10 +158,12 @@ export const PedidosStore = signalStore(
         switchMap((id) =>
           pedidosService.cancelPedido(id).pipe(
             tap((canceledPedido) => {
-              patchState(store, {
-                pedidos: store.pedidos().map(p => p.id === id ? canceledPedido : p),
-                loading: false
-              });
+              if (canceledPedido) {
+                patchState(store, {
+                  pedidos: store.pedidos().map(p => p.id === id ? canceledPedido : p),
+                  loading: false
+                });
+              }
             }),
             catchError((error: any) => {
               console.error('Error cancelando pedido:', error);
@@ -164,7 +171,7 @@ export const PedidosStore = signalStore(
                 error: error.message || 'Error al cancelar pedido',
                 loading: false
               });
-              return of(null);
+              return of();
             })
           )
         )

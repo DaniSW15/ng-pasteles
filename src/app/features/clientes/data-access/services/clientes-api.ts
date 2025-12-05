@@ -32,4 +32,8 @@ export class ClientesApi {
   delete(id: string): Observable<void> {
     return this.api.delete<void>(`Clientes/${id}`);
   }
+
+  syncClientes(): Observable<any> {
+    return this.api.post<any>('Clientes/sync', {});
+  }
 }

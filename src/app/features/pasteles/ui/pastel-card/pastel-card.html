@@ -18,13 +18,6 @@
       <i class="pi pi-star"></i>
       Sabor: {{ pastel().sabor }}
     </p>
-    
-    @if (pastel().fechaCreacion) {
-      <p class="card-fecha">
-        <i class="pi pi-calendar"></i>
-        {{ pastel().fechaCreacion | date:'dd/MM/yyyy' }}
-      </p>
-    }
   </div>
 
   <ng-template pTemplate="footer">

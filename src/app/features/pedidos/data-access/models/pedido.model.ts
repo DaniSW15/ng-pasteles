@@ -17,10 +17,10 @@ export interface Pedido {
 }
 
 export enum EstadoPedido {
-  Pendiente = 1,
-  EnProceso = 2,
-  Completado = 3,
-  Cancelado = 4
+  Pendiente = 0,
+  EnProceso = 1,
+  Completado = 2,
+  Cancelado = 3
 }
 
 export interface CreatePedidoRequest {
